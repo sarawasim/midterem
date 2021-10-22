@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const app = express();
-const db = mongoose.connect("mongodb://localhost/courseAPI");
+const db = mongoose.connect("process.env.MONGODB_URI || mongodb://localhost/courseAPI");
 const Course = require("./models/courseModel");
 const courseRouter = express.Router();
 const port = process.env.PORT || 3000;
@@ -12,6 +12,7 @@ const { networkInterfaces } = require('os');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+require('dotenv').config()
 
 courseRouter.use(function (req, res, next) {
   const nets = networkInterfaces();
